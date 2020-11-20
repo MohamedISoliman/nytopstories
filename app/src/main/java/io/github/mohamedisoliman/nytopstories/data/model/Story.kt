@@ -1,6 +1,6 @@
 package io.github.mohamedisoliman.nytopstories.data.model
 
-data class Result(
+data class Story(
     val `abstract`: String? = "",
     val byline: String? = "",
     val created_date: String? = "",

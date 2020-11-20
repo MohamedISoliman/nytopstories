@@ -43,6 +43,7 @@ android {
         versionCode = advancedVersioning.versionCode
         versionName = advancedVersioning.versionName
 
+        buildConfigField("String", "API_KEY", "${properties["API_KEY"]}")
         testInstrumentationRunner = Dependencies.androidJunitRunner
     }
 
