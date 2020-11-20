@@ -23,10 +23,8 @@ object Dependencies {
 
 
     //coroutines + rx
-    const val coroutinesCore =
-        ("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutinesCore}")
-    const val coroutinesAndroid =
-        ("org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutinesAndroid}")
+    const val coroutinesCore = ("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutinesCore}")
+    const val coroutinesAndroid = ("org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutinesAndroid}")
 
     //ui
     const val recyclerView = ("androidx.recyclerview:recyclerview:${Versions.recyclerView}")

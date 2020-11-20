@@ -11,8 +11,8 @@ object Versions {
 
     //Kotlin
     const val kotlinVersion = "1.4.0"
-    const val coroutinesCore = "1.3.4"
-    const val coroutinesAndroid = "1.3.4"
+    const val coroutinesCore = "1.4.0"
+    const val coroutinesAndroid = "1.4.0"
     val javaVersion = JavaVersion.VERSION_1_8
 
     //test

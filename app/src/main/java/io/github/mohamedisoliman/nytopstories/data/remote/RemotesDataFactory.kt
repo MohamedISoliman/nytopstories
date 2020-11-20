@@ -15,13 +15,13 @@ object RemotesDataFactory {
 
     private const val BASE_URL = "https://api.nytimes.com/svc/"
 
-    fun nytApis(): NyTimesApis {
+    fun nytApis(): RemoteNyTimesContract {
 
         val retrofit = Retrofit.Builder().baseUrl(BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
-        return retrofit.create(NyTimesApis::class.java)
+        return retrofit.create(RemoteNyTimesContract::class.java)
     }
 
     private val okHttpClient: OkHttpClient
