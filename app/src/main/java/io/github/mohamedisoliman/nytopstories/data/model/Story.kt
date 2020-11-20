@@ -1,23 +1,45 @@
 package io.github.mohamedisoliman.nytopstories.data.model
 
+
+import com.google.gson.annotations.SerializedName
+
 data class Story(
+    @SerializedName("abstract")
     val `abstract`: String? = "",
+    @SerializedName("byline")
     val byline: String? = "",
-    val created_date: String? = "",
-    val des_facet: List<String>? = listOf(),
-    val geo_facet: List<String>? = listOf(),
-    val item_type: String? = "",
+    @SerializedName("created_date")
+    val createdDate: String? = "",
+    @SerializedName("des_facet")
+    val desFacet: List<String>? = listOf(),
+    @SerializedName("geo_facet")
+    val geoFacet: List<String>? = listOf(),
+    @SerializedName("item_type")
+    val itemType: String? = "",
+    @SerializedName("kicker")
     val kicker: String? = "",
-    val material_type_facet: String? = "",
+    @SerializedName("material_type_facet")
+    val materialTypeFacet: String? = "",
+    @SerializedName("multimedia")
     val multimedia: List<Multimedia>? = listOf(),
-    val org_facet: List<String>? = listOf(),
-    val per_facet: List<String>? = listOf(),
-    val published_date: String? = "",
+    @SerializedName("org_facet")
+    val orgFacet: List<String>? = listOf(),
+    @SerializedName("per_facet")
+    val perFacet: List<String>? = listOf(),
+    @SerializedName("published_date")
+    val publishedDate: String? = "",
+    @SerializedName("section")
     val section: String? = "",
-    val short_url: String? = "",
+    @SerializedName("short_url")
+    val shortUrl: String? = "",
+    @SerializedName("subsection")
     val subsection: String? = "",
+    @SerializedName("title")
     val title: String? = "",
-    val updated_date: String? = "",
+    @SerializedName("updated_date")
+    val updatedDate: String? = "",
+    @SerializedName("uri")
     val uri: String? = "",
+    @SerializedName("url")
     val url: String? = ""
 )

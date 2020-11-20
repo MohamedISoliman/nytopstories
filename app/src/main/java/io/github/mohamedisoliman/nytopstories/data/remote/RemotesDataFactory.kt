@@ -6,6 +6,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 /**
@@ -19,6 +20,8 @@ object RemotesDataFactory {
 
         val retrofit = Retrofit.Builder().baseUrl(BASE_URL)
             .client(okHttpClient)
+            .addConverterFactory(GsonConverterFactory.create())
+            //there's a problem with Moshi serializer
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
         return retrofit.create(RemoteNyTimesContract::class.java)

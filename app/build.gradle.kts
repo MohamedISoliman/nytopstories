@@ -98,6 +98,7 @@ dependencies {
 
     //network
     implementation(Dependencies.retrofit)
+    implementation(Dependencies.gson)
     implementation(Dependencies.moshi)
     implementation(Dependencies.loggingInterceptor)
     implementation(Dependencies.okHttp)

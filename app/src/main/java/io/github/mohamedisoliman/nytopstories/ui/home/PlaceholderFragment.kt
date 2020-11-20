@@ -1,4 +1,4 @@
-package io.github.mohamedisoliman.nytopstories.ui
+package io.github.mohamedisoliman.nytopstories.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,9 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import io.github.mohamedisoliman.nytopstories.R
 import io.github.mohamedisoliman.nytopstories.databinding.FragmentMainBinding
-import io.github.mohamedisoliman.nytopstories.ui.home.HomeViewModel
 
 class PlaceholderFragment : Fragment() {
 
@@ -16,6 +18,12 @@ class PlaceholderFragment : Fragment() {
     private var _binding: FragmentMainBinding? = null
 
     private val binding get() = _binding!!
+
+    private val storiesAdapter = StoriesAdapter({
+        pageViewModel.save(it)
+    }, {
+        pageViewModel.delete(it)
+    })
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +41,26 @@ class PlaceholderFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupRecyclerView()
         setupObservers()
+    }
+
+    private fun setupRecyclerView() {
+        val verticalGridSpacing = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
+            .apply {
+                context?.getDrawable(R.drawable.spacing_divider)?.let { setDrawable(it) }
+            }
+        val horizontalGridSpacing = DividerItemDecoration(context, DividerItemDecoration.HORIZONTAL)
+            .apply {
+                context?.getDrawable(R.drawable.spacing_divider)?.let { setDrawable(it) }
+            }
+
+        with(binding.recyclerViewTopStories) {
+            layoutManager = GridLayoutManager(context, 2)
+            addItemDecoration(verticalGridSpacing)
+            addItemDecoration(horizontalGridSpacing)
+            adapter = storiesAdapter
+        }
     }
 
     private fun setupObservers() {
@@ -51,8 +78,10 @@ class PlaceholderFragment : Fragment() {
         }
 
         pageViewModel.topStories().observe(viewLifecycleOwner) {
-            Snackbar.make(binding.root, "HEEEY WE GOT RESULT", Snackbar.LENGTH_LONG).show()
+            storiesAdapter.submitList(it)
         }
+
+        pageViewModel.start()
     }
 
     companion object {

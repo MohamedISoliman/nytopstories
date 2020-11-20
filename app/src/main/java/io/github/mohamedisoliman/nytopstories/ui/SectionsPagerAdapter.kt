@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import io.github.mohamedisoliman.nytopstories.R
+import io.github.mohamedisoliman.nytopstories.ui.home.PlaceholderFragment
 
 private val TAB_TITLES = arrayOf(
     R.string.tab_text_1,

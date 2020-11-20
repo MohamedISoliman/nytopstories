@@ -8,6 +8,7 @@ import io.github.mohamedisoliman.nytopstories.di.Dependencies
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class HomeViewModel : ViewModel() {
 
@@ -22,19 +23,29 @@ class HomeViewModel : ViewModel() {
     private val loading = MutableLiveData<Boolean>()
     fun loading() = loading
 
-    init {
+
+    fun save(it: Story) {
+
+    }
+
+    fun delete(it: Story) {
+
+    }
+
+    fun start() {
         retriever.retrieve()
             .onStart { loading.postValue(true) }
             .onEach {
+                loading.postValue(false)
                 if (it.isSuccess) {
                     topStories.postValue(it.getOrNull())
-                }
-                if (it.isFailure) {
+                } else {
+                    Timber.e(it.exceptionOrNull())
                     errors.postValue(it.exceptionOrNull()?.message)
                 }
             }
-            .onStart { loading.postValue(false) }
             .launchIn(viewModelScope)
+
     }
 
 }
