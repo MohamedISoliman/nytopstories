@@ -1,4 +1,4 @@
-package io.github.mohamedisoliman.nytopstories.ui.main.home
+package io.github.mohamedisoliman.nytopstories.ui.home
 
 import androidx.lifecycle.*
 import io.github.mohamedisoliman.nytopstories.data.model.NyTimesResponse

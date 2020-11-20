@@ -1,4 +1,4 @@
-package io.github.mohamedisoliman.nytopstories.ui.main
+package io.github.mohamedisoliman.nytopstories.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import io.github.mohamedisoliman.nytopstories.databinding.FragmentMainBinding
-import io.github.mohamedisoliman.nytopstories.ui.main.home.HomeViewModel
+import io.github.mohamedisoliman.nytopstories.ui.home.HomeViewModel
 
 class PlaceholderFragment : Fragment() {
 

@@ -1,4 +1,4 @@
-package io.github.mohamedisoliman.nytopstories.ui.main
+package io.github.mohamedisoliman.nytopstories.ui
 
 import android.content.Context
 import androidx.fragment.app.Fragment
