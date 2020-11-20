@@ -1,5 +1,7 @@
 package io.github.mohamedisoliman.nytopstories.ui
 
+import android.opengl.Visibility
+import android.view.View
 import android.widget.ImageView
 import com.squareup.picasso.Picasso
 import io.github.mohamedisoliman.nytopstories.R
@@ -16,6 +18,7 @@ private val placeHolders = listOf(
 fun ImageView.loadImage(url: String? = null) {
     if (url != null) {
         Picasso.get().load(url)
+            .placeholder(R.mipmap.nytimes_logo_copy)
             .into(this)
     } else {
         Picasso.get().load(R.mipmap.nytimes_logo_copy)
@@ -23,3 +26,20 @@ fun ImageView.loadImage(url: String? = null) {
     }
 
 }
+
+
+fun View.visible() {
+    visibility = View.VISIBLE
+}
+
+fun View.gone() {
+    visibility = View.GONE
+}
+
+fun View.invisible() {
+    visibility = View.INVISIBLE
+}
+
+fun Boolean.toVisibility() = if (this) View.VISIBLE else View.INVISIBLE
+
+fun Boolean.toVisibilityGone() = if (this) View.VISIBLE else View.GONE

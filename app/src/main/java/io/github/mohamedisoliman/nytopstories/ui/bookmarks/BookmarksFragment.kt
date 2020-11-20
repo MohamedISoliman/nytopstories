@@ -1,4 +1,4 @@
-package io.github.mohamedisoliman.nytopstories.ui.home
+package io.github.mohamedisoliman.nytopstories.ui.bookmarks
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,24 +11,22 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import io.github.mohamedisoliman.nytopstories.R
 import io.github.mohamedisoliman.nytopstories.databinding.FragmentMainBinding
+import io.github.mohamedisoliman.nytopstories.ui.home.StoriesAdapter
 
-class PlaceholderFragment : Fragment() {
+class BookmarksFragment : Fragment() {
 
-    private lateinit var pageViewModel: HomeViewModel
+    private lateinit var pageViewModel: BookmarksViewModel
     private var _binding: FragmentMainBinding? = null
 
     private val binding get() = _binding!!
 
     private val storiesAdapter = StoriesAdapter({
-        pageViewModel.save(it)
     }, {
-        pageViewModel.delete(it)
     })
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        pageViewModel = ViewModelProvider(this).get(HomeViewModel::class.java).apply {
-        }
+        pageViewModel = ViewModelProvider(this).get(BookmarksViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -64,32 +62,31 @@ class PlaceholderFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        pageViewModel.errors().observe(viewLifecycleOwner) {
-            Snackbar.make(binding.root, it, Snackbar.LENGTH_LONG).show()
-        }
-
-        pageViewModel.loading().observe(viewLifecycleOwner) {
-            if (it) {
-                Snackbar.make(binding.root, "Loading", Snackbar.LENGTH_LONG).show()
-            } else {
-                Snackbar.make(binding.root, "DONE", Snackbar.LENGTH_LONG).show()
-            }
-
-        }
-
-        pageViewModel.topStories().observe(viewLifecycleOwner) {
-            storiesAdapter.submitList(it)
-        }
-
-        pageViewModel.start()
+//        pageViewModel.errors().observe(viewLifecycleOwner) {
+//            Snackbar.make(binding.root, it, Snackbar.LENGTH_LONG).show()
+//        }
+//
+//        pageViewModel.loading().observe(viewLifecycleOwner) {
+//            if (it) {
+//                Snackbar.make(binding.root, getString(R.string.loading), Snackbar.LENGTH_LONG)
+//                    .show()
+//            }
+//
+//        }
+//
+//        pageViewModel.bookmarks().observe(viewLifecycleOwner) {
+//            storiesAdapter.submitList(it)
+//        }
+//
+//        pageViewModel.start()
     }
 
     companion object {
         private const val ARG_SECTION_NUMBER = "section_number"
 
         @JvmStatic
-        fun newInstance(sectionNumber: Int): PlaceholderFragment {
-            return PlaceholderFragment().apply {
+        fun newInstance(sectionNumber: Int): BookmarksFragment {
+            return BookmarksFragment().apply {
                 arguments = Bundle().apply {
                     putInt(ARG_SECTION_NUMBER, sectionNumber)
                 }
