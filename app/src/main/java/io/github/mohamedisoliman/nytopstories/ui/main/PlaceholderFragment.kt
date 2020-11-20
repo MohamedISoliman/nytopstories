@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import io.github.mohamedisoliman.nytopstories.databinding.FragmentMainBinding
+import io.github.mohamedisoliman.nytopstories.ui.main.home.HomeViewModel
 
 class PlaceholderFragment : Fragment() {
 
@@ -28,6 +29,30 @@ class PlaceholderFragment : Fragment() {
     ): View? {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupObservers()
+    }
+
+    private fun setupObservers() {
+        pageViewModel.errors().observe(viewLifecycleOwner) {
+            Snackbar.make(binding.root, it, Snackbar.LENGTH_LONG).show()
+        }
+
+        pageViewModel.loading().observe(viewLifecycleOwner) {
+            if (it) {
+                Snackbar.make(binding.root, "Loading", Snackbar.LENGTH_LONG).show()
+            } else {
+                Snackbar.make(binding.root, "DONE", Snackbar.LENGTH_LONG).show()
+            }
+
+        }
+
+        pageViewModel.topStories().observe(viewLifecycleOwner) {
+            Snackbar.make(binding.root, "HEEEY WE GOT RESULT", Snackbar.LENGTH_LONG).show()
+        }
     }
 
     companion object {

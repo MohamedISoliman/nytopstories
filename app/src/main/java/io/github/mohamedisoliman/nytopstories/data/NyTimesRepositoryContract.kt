@@ -5,6 +5,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface NyTimesRepositoryContract {
 
-    suspend fun retrieveTopStories(): Flow<List<Story>>
+    suspend fun retrieveTopStories(): List<Story>
 
 }

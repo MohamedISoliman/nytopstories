@@ -1,17 +1,17 @@
-package io.github.mohamedisoliman.nytopstories.ui.main
+package io.github.mohamedisoliman.nytopstories.ui.main.home
 
 import androidx.lifecycle.*
 import io.github.mohamedisoliman.nytopstories.data.model.NyTimesResponse
 import io.github.mohamedisoliman.nytopstories.data.model.Story
 import io.github.mohamedisoliman.nytopstories.data.remote.RemotesDataFactory
+import io.github.mohamedisoliman.nytopstories.di.Dependencies
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class HomeViewModel : ViewModel() {
+
+    private val retriever = Dependencies.topStoriesRetriever
 
     private val topStories = MutableLiveData<List<Story>>()
     fun topStories() = topStories
@@ -23,18 +23,18 @@ class HomeViewModel : ViewModel() {
     fun loading() = loading
 
     init {
-
-        viewModelScope.launch {
-            loading.postValue(true)
-            try {
-                val retrieveTopStories = RemotesDataFactory.nytApis().retrieveTopStories()
-                topStories.postValue(retrieveTopStories.stories ?: emptyList())
-            } catch (e: Exception) {
-                errors.postValue("Something wrong happened!")
-            } finally {
-                loading.postValue(false)
+        retriever.retrieve()
+            .onStart { loading.postValue(true) }
+            .onEach {
+                if (it.isSuccess) {
+                    topStories.postValue(it.getOrNull())
+                }
+                if (it.isFailure) {
+                    errors.postValue(it.exceptionOrNull()?.message)
+                }
             }
-        }
+            .onStart { loading.postValue(false) }
+            .launchIn(viewModelScope)
     }
 
 }

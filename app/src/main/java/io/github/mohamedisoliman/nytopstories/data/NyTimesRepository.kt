@@ -11,10 +11,8 @@ class NyTimesRepository(
 ) : NyTimesRepositoryContract {
 
 
-    override suspend fun retrieveTopStories(): Flow<List<Story>> {
-        return flowOf(remoteNyTimesContract.retrieveTopStories())
-            .map { it.stories ?: emptyList() }
-
+    override suspend fun retrieveTopStories(): List<Story> {
+        return remoteNyTimesContract.retrieveTopStories().stories ?: emptyList()
     }
 
 
