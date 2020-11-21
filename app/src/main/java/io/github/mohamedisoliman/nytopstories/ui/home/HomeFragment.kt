@@ -1,6 +1,5 @@
 package io.github.mohamedisoliman.nytopstories.ui.home
 
-import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -21,11 +20,7 @@ class HomeFragment : Fragment() {
 
     private val binding get() = _binding!!
 
-    private val storiesAdapter = StoriesAdapter({
-        pageViewModel.save(it)
-    }, {
-        pageViewModel.delete(it)
-    })
+    private val storiesAdapter = StoriesAdapter { pageViewModel.onBookmarkClicked(it) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,7 +63,6 @@ class HomeFragment : Fragment() {
     private fun setupObservers() {
         pageViewModel.errors().observe(viewLifecycleOwner) {
             Snackbar.make(binding.root, it, Snackbar.LENGTH_LONG).show()
-            binding.emptyView.visibility = View.VISIBLE
         }
 
         pageViewModel.loading().observe(viewLifecycleOwner) {

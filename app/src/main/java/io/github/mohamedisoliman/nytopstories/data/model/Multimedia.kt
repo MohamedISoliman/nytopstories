@@ -1,8 +1,11 @@
 package io.github.mohamedisoliman.nytopstories.data.model
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Multimedia(
     @SerializedName("caption")
     val caption: String? = "",
@@ -19,5 +22,5 @@ data class Multimedia(
     @SerializedName("url")
     val url: String? = "",
     @SerializedName("width")
-    val width: Int? = 0
-)
+    val width: Int? = 0,
+) : Parcelable

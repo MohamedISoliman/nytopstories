@@ -9,9 +9,8 @@ class TopStoriesRetriever(
     private val repositoryContract: NyTimesRepositoryContract,
 ) {
 
-
     fun retrieve(): Flow<Result<List<Story>>> {
-        return flow { emit(repositoryContract.retrieveTopStories()) }
+        return repositoryContract.retrieveTopStories()
             .map { Result.success(it) }
             .catch { emit(Result.failure(it)) }
     }

@@ -1,45 +1,59 @@
 package io.github.mohamedisoliman.nytopstories.data.model
 
 
+import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.Ignore
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Entity
+@Parcelize
 data class Story(
+    @PrimaryKey(autoGenerate = true)
+    var id: Int? = null,
     @SerializedName("abstract")
-    val `abstract`: String? = "",
+    var `abstract`: String? = "",
     @SerializedName("byline")
-    val byline: String? = "",
+    var byline: String? = "",
     @SerializedName("created_date")
-    val createdDate: String? = "",
+    var createdDate: String? = "",
     @SerializedName("des_facet")
-    val desFacet: List<String>? = listOf(),
+    @Ignore
+    var desFacet: List<String>? = listOf(),
     @SerializedName("geo_facet")
-    val geoFacet: List<String>? = listOf(),
+    @Ignore
+    var geoFacet: List<String>? = listOf(),
     @SerializedName("item_type")
-    val itemType: String? = "",
+    var itemType: String? = "",
     @SerializedName("kicker")
-    val kicker: String? = "",
+    var kicker: String? = "",
     @SerializedName("material_type_facet")
-    val materialTypeFacet: String? = "",
+    var materialTypeFacet: String? = "",
     @SerializedName("multimedia")
-    val multimedia: List<Multimedia>? = listOf(),
+    @Ignore
+    var multimedia: List<Multimedia>? = listOf(),
     @SerializedName("org_facet")
-    val orgFacet: List<String>? = listOf(),
+    @Ignore
+    var orgFacet: List<String>? = listOf(),
     @SerializedName("per_facet")
-    val perFacet: List<String>? = listOf(),
+    @Ignore
+    var perFacet: List<String>? = listOf(),
     @SerializedName("published_date")
-    val publishedDate: String? = "",
+    var publishedDate: String? = "",
     @SerializedName("section")
-    val section: String? = "",
+    var section: String? = "",
     @SerializedName("short_url")
-    val shortUrl: String? = "",
+    var shortUrl: String? = "",
     @SerializedName("subsection")
-    val subsection: String? = "",
+    var subsection: String? = "",
     @SerializedName("title")
-    val title: String? = "",
+    var title: String? = "",
     @SerializedName("updated_date")
-    val updatedDate: String? = "",
+    var updatedDate: String? = "",
     @SerializedName("uri")
-    val uri: String? = "",
+    var uri: String? = "",
     @SerializedName("url")
-    val url: String? = ""
-)
+    var url: String? = "",
+) : Parcelable

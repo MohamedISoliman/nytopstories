@@ -20,9 +20,7 @@ class BookmarksFragment : Fragment() {
 
     private val binding get() = _binding!!
 
-    private val storiesAdapter = StoriesAdapter({
-    }, {
-    })
+    private val storiesAdapter = StoriesAdapter {}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

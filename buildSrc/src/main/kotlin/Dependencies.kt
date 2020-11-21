@@ -23,8 +23,10 @@ object Dependencies {
 
 
     //coroutines + rx
-    const val coroutinesCore = ("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutinesCore}")
-    const val coroutinesAndroid = ("org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutinesAndroid}")
+    const val coroutinesCore =
+        "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutinesCore}"
+    const val coroutinesAndroid =
+        "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutinesAndroid}"
 
     //ui
     const val recyclerView = ("androidx.recyclerview:recyclerview:${Versions.recyclerView}")
@@ -45,22 +47,22 @@ object Dependencies {
 
     //arch components
     const val lifecycleExt =
-        ("androidx.lifecycle:lifecycle-extensions:${Versions.lifecycleVersion}")
+        "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycleVersion}"
     const val viewModelKtx =
-        ("androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycleVersion}")
+        "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycleVersion}"
     const val liveDataKtx =
-        ("androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycleVersion}")
+        "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycleVersion}"
     const val viewModelSavedState =
-        ("androidx.lifecycle:lifecycle-viewmodel-savedstate:${Versions.lifecycleVersion}")
+        "androidx.lifecycle:lifecycle-viewmodel-savedstate:${Versions.lifecycleVersion}"
     const val lifecycleCommonJava8 =
-        ("androidx.lifecycle:lifecycle-common-java8:${Versions.lifecycleVersion}")
+        "androidx.lifecycle:lifecycle-common-java8:${Versions.lifecycleVersion}"
     const val lifecycleProcess =
-        ("androidx.lifecycle:lifecycle-process:${Versions.lifecycleVersion}")
+        "androidx.lifecycle:lifecycle-process:${Versions.lifecycleVersion}"
 
     //Room
-    const val room = ("androidx.room:room-runtime:${Versions.roomVersion}")
-    const val roomCompiler = ("androidx.room:room-compiler:${Versions.roomVersion}")
-    const val roomKtx = ("androidx.room:room-ktx:${Versions.roomVersion}")
+    const val room = "androidx.room:room-runtime:${Versions.roomVersion}"
+    const val roomCompiler = "androidx.room:room-compiler:${Versions.roomVersion}"
+    const val roomKtx = "androidx.room:room-ktx:${Versions.roomVersion}"
 
     //logging
     const val timber = ("com.jakewharton.timber:timber:${Versions.timber}")

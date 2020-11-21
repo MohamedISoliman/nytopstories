@@ -12,8 +12,7 @@ import io.github.mohamedisoliman.nytopstories.ui.loadImage
 import kotlinx.android.synthetic.main.item_story.view.*
 
 class StoriesAdapter(
-    private val onSave: (Story) -> Unit,
-    private val onDelete: (Story) -> Unit,
+    private val onBookmarkClicked: (Story) -> Unit,
 ) : ListAdapter<Story, RecyclerView.ViewHolder>(diffCallback) {
 
 
@@ -31,7 +30,7 @@ class StoriesAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is StoryViewHolder) {
-            holder.bind(getItem(position), onSave, onDelete)
+            holder.bind(getItem(position), onBookmarkClicked)
         }
     }
 
@@ -39,18 +38,12 @@ class StoriesAdapter(
     class StoryViewHolder(viewItem: View) : RecyclerView.ViewHolder(viewItem) {
         fun bind(
             story: Story,
-            onSave: (Story) -> Unit,
-            onDelete: (Story) -> Unit,
+            onBookmarkClicked: (Story) -> Unit,
         ) {
 
             itemView.textView.text = story.title
-//            if (itemView.bookmark.isChecked) {
-//                itemView.bookmark.isChecked = false
-//                onDelete(story)
-//            } else {
-//                itemView.bookmark.isChecked = true
-//                onSave(story)
-//            }
+            itemView.bookmark.isChecked = story.id != null
+            itemView.bookmark.setOnClickListener { onBookmarkClicked(story) }
 
             story.multimedia?.let {
                 if (it.isNotEmpty())
