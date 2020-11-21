@@ -14,6 +14,9 @@ interface TopStoriesDao {
     @Query("SELECT * FROM story")
     suspend fun bookmarks(): List<Story>
 
+    @Query("SELECT * FROM story")
+    fun bookmarksFlow(): Flow<List<Story>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addStory(story: Story): Long
 

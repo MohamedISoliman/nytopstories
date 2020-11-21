@@ -12,6 +12,7 @@ import com.google.android.material.snackbar.Snackbar
 import io.github.mohamedisoliman.nytopstories.R
 import io.github.mohamedisoliman.nytopstories.databinding.FragmentMainBinding
 import io.github.mohamedisoliman.nytopstories.ui.home.StoriesAdapter
+import io.github.mohamedisoliman.nytopstories.ui.toVisibilityGone
 
 class BookmarksFragment : Fragment() {
 
@@ -20,12 +21,7 @@ class BookmarksFragment : Fragment() {
 
     private val binding get() = _binding!!
 
-    private val storiesAdapter = StoriesAdapter {}
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        pageViewModel = ViewModelProvider(this).get(BookmarksViewModel::class.java)
-    }
+    private val storiesAdapter = StoriesAdapter { pageViewModel.onBookmarkClicked(it) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,6 +33,8 @@ class BookmarksFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        pageViewModel = ViewModelProvider(this).get(BookmarksViewModel::class.java)
+
         setupRecyclerView()
         setupObservers()
     }
@@ -60,23 +58,18 @@ class BookmarksFragment : Fragment() {
     }
 
     private fun setupObservers() {
-//        pageViewModel.errors().observe(viewLifecycleOwner) {
-//            Snackbar.make(binding.root, it, Snackbar.LENGTH_LONG).show()
-//        }
-//
-//        pageViewModel.loading().observe(viewLifecycleOwner) {
-//            if (it) {
-//                Snackbar.make(binding.root, getString(R.string.loading), Snackbar.LENGTH_LONG)
-//                    .show()
-//            }
-//
-//        }
-//
-//        pageViewModel.bookmarks().observe(viewLifecycleOwner) {
-//            storiesAdapter.submitList(it)
-//        }
-//
-//        pageViewModel.start()
+        pageViewModel.errors().observe(viewLifecycleOwner) {
+            Snackbar.make(binding.root, it, Snackbar.LENGTH_LONG).show()
+        }
+
+        pageViewModel.loading().observe(viewLifecycleOwner) {
+            if (it) binding.progressCircular.show() else binding.progressCircular.hide()
+        }
+
+        pageViewModel.topStories().observe(viewLifecycleOwner) {
+            binding.emptyView.visibility = it.isEmpty().toVisibilityGone()
+            storiesAdapter.submitList(it)
+        }
     }
 
     companion object {

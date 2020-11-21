@@ -6,7 +6,7 @@ import io.github.mohamedisoliman.nytopstories.di.Dependencies
 import io.github.mohamedisoliman.nytopstories.domain.BookmarkResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
+import okhttp3.internal.notifyAll
 import timber.log.Timber
 
 class HomeViewModel : ViewModel() {
@@ -23,12 +23,28 @@ class HomeViewModel : ViewModel() {
     private val loading = MutableLiveData<Boolean>()
     fun loading() = loading
 
+    init {
+        retriever.retrieve()
+            .flowOn(Dispatchers.IO)
+            .onStart { loading.postValue(true) }
+            .onEach {
+                if (it.isSuccess) {
+                    topStories.postValue(it.getOrNull())
+                } else {
+                    Timber.e(it.exceptionOrNull())
+                    errorsOrInfo.postValue(it.exceptionOrNull()?.message)
+                }
+            }.onEach { loading.postValue(false) }
+            .flowOn(Dispatchers.Main)
+            .launchIn(viewModelScope)
+    }
+
 
     fun onBookmarkClicked(it: Story) {
         bookMarksHandler.handleBookmark(it)
             .flowOn(Dispatchers.IO)
             .onEach {
-                errorsOrInfo.postValue(when (it) {
+                Timber.d(when (it) {
                     BookmarkResult.Saved -> "Saved!"
                     BookmarkResult.FailedDeleting, BookmarkResult.FailedSaving -> "Something wrong happened!"
                     BookmarkResult.Deleted -> "Removed From bookmarks!"
@@ -39,22 +55,5 @@ class HomeViewModel : ViewModel() {
             .launchIn(viewModelScope)
     }
 
-
-    fun start() {
-        retriever.retrieve()
-            .flowOn(Dispatchers.IO)
-            .onStart { loading.postValue(true) }
-            .onEach {
-                loading.postValue(false)
-                if (it.isSuccess) {
-                    topStories.postValue(it.getOrNull())
-                } else {
-                    Timber.e(it.exceptionOrNull())
-                    errorsOrInfo.postValue(it.exceptionOrNull()?.message)
-                }
-            }.flowOn(Dispatchers.Main)
-            .launchIn(viewModelScope)
-
-    }
 
 }

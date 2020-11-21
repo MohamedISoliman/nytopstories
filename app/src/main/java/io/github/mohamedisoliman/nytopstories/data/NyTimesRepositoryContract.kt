@@ -7,4 +7,6 @@ interface NyTimesRepositoryContract {
 
     fun retrieveTopStories(): Flow<List<Story>>
 
+    fun retrieveBookmarks(): Flow<List<Story>>
+
 }

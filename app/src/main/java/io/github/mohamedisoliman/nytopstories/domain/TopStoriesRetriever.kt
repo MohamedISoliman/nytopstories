@@ -11,8 +11,12 @@ class TopStoriesRetriever(
 
     fun retrieve(): Flow<Result<List<Story>>> {
         return repositoryContract.retrieveTopStories()
-            .map { Result.success(it) }
+            .map { list -> Result.success(list.distinctBy { it.title }) }
             .catch { emit(Result.failure(it)) }
     }
+
+
+    fun retrieveBookmarks(): Flow<List<Story>> =
+        repositoryContract.retrieveBookmarks()
 
 }

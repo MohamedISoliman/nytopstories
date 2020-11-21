@@ -22,12 +22,6 @@ class HomeFragment : Fragment() {
 
     private val storiesAdapter = StoriesAdapter { pageViewModel.onBookmarkClicked(it) }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        pageViewModel = ViewModelProvider(this).get(HomeViewModel::class.java).apply {
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -38,6 +32,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        pageViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         setupRecyclerView()
         setupObservers()
     }
@@ -73,8 +68,6 @@ class HomeFragment : Fragment() {
             binding.emptyView.visibility = it.isEmpty().toVisibilityGone()
             storiesAdapter.submitList(it)
         }
-
-        pageViewModel.start()
     }
 
     companion object {

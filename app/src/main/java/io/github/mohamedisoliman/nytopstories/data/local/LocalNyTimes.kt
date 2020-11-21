@@ -1,6 +1,7 @@
 package io.github.mohamedisoliman.nytopstories.data.local
 
 import io.github.mohamedisoliman.nytopstories.data.model.Story
+import kotlinx.coroutines.flow.Flow
 
 
 class LocalNyTimes(private val database: TopStoriesDatabase) : LocalNyTimesContract {
@@ -8,6 +9,9 @@ class LocalNyTimes(private val database: TopStoriesDatabase) : LocalNyTimesContr
     override suspend fun retrieveBookmarks(): List<Story> {
         return database.topStoriesDao().bookmarks()
     }
+
+    override fun bookmarksFlow(): Flow<List<Story>> =
+        database.topStoriesDao().bookmarksFlow()
 
     override suspend fun bookmark(story: Story): Int? =
         database.topStoriesDao().addStory(story).toInt()
